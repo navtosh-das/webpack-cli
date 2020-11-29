@@ -157,7 +157,7 @@ const builtInFlags = [
     {
         name: 'help',
         usage: '--help',
-        type: Boolean,
+        type: [Boolean, String],
         description: 'Outputs list of supported flags',
     },
     {

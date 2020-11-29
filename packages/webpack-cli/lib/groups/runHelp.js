@@ -13,7 +13,15 @@ const outputHelp = (args) => {
 
     const hasUnknownVersionArgs = (args, commands, flags) => {
         return args.filter((arg) => {
-            if (arg === 'version' || arg === 'help' || arg === '--help' || arg === '-h' || arg === '--no-color') {
+            if (
+                arg === 'version' ||
+                arg === 'help' ||
+                arg === '--help' ||
+                arg === '-h' ||
+                arg === '--no-color' ||
+                arg === 'advance' ||
+                arg === '--help=advance'
+            ) {
                 return false;
             }
 
@@ -90,7 +98,11 @@ const outputHelp = (args) => {
             logger.raw(flags);
         }
     } else {
-        const negatedFlags = flags
+        let flagsToDisplay = flags.filter((flag) => !flag.name.includes('-')); // basic options only one word
+        if (args.includes('advance') || args.includes('--help=advance')) {
+            flagsToDisplay = flags;
+        }
+        const negatedFlags = flagsToDisplay
             .filter((flag) => flag.negative)
             .reduce((allFlags, flag) => {
                 return [...allFlags, { name: `no-${flag.name}`, description: `Negates ${flag.name}`, type: Boolean }];
@@ -111,7 +123,7 @@ const outputHelp = (args) => {
             },
             {
                 header: 'Options',
-                optionList: flags
+                optionList: flagsToDisplay
                     .map((e) => {
                         if (e.type.length > 1) {
                             e.type = e.type[0];

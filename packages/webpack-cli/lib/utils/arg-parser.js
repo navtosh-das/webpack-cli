@@ -16,7 +16,9 @@ const runVersion = require('../groups/runVersion');
  */
 const argParser = (options, args, argsOnly = false, name = '') => {
     // Use customized help output
-    if (args.includes('--help') || args.includes('help')) {
+    const showHelp = args.includes('--help') || args.includes('help') || args.includes('--help=advance');
+    // allow --help=advance and --help advance for advanced help
+    if (showHelp || (showHelp && args.includes('advance'))) {
         runHelp(args);
         process.exit(0);
     }

@@ -19,7 +19,7 @@ describe('single help flag', () => {
         expect(stdout).toContain(example);
     });
 
-    it('outputs help info with command syntax', () => {
+    it('outputs basic help info with command syntax', () => {
         const { exitCode, stderr, stdout } = run(__dirname, ['help'], false);
 
         expect(exitCode).toBe(0);
@@ -27,21 +27,41 @@ describe('single help flag', () => {
         expect(stdout).toContain(helpHeader);
     });
 
-    it('outputs help info with dashed syntax', () => {
+    it('outputs basic help info with dashed syntax', () => {
         const { exitCode, stderr, stdout } = run(__dirname, ['--help'], false);
 
         expect(exitCode).toBe(0);
         expect(stderr).toBeFalsy();
         expect(stdout).toContain(helpHeader);
+        expect(stdout).toContain('-t, --target');
+        expect(stdout).not.toContain('--config-name'); // an advanced option
     });
 
-    it('creates a readable snapshot', () => {
-        const { stderr } = run(__dirname, ['--help'], false);
 
-        const serializer = require('jest-serializer-ansi');
+    it('outputs advanced help info with dashed syntax', () => {
+        const { stdout, stderr, exitCode } = run(__dirname, ['--help', 'advance'], false);
 
-        expect.addSnapshotSerializer(serializer);
-
+        expect(exitCode).toBe(0);
         expect(stderr).toBeFalsy();
+        expect(stdout).toContain(helpHeader);
+        expect(stdout).toContain('--config-name'); // an advanced option
+    });
+
+    it('outputs advanced help info with command syntax', () => {
+        const { stdout, stderr, exitCode } = run(__dirname, ['help', 'advance'], false);
+
+        expect(exitCode).toBe(0);
+        expect(stderr).toBeFalsy();
+        expect(stdout).toContain(helpHeader);
+        expect(stdout).toContain('--config-name'); // an advanced option
+    });
+
+    it('outputs advanced help info with --help=advance', () => {
+        const { stdout, stderr, exitCode } = run(__dirname, ['--help=advance'], false);
+
+        expect(exitCode).toBe(0);
+        expect(stdout).toContain(helpHeader);
+        expect(stdout).toContain('--config-name'); // an advanced option
+        expect(stderr).toHaveLength(0);
     });
 });

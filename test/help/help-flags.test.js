@@ -30,8 +30,13 @@ describe('commands help', () => {
         expect(stderr).toHaveLength(0);
     });
 
+<<<<<<< HEAD
     it('log show help for --mode', () => {
         const { exitCode, stderr, stdout } = run(__dirname, ['--mode', '--help'], false);
+=======
+    it('log help for --mode', () => {
+        const { stdout, stderr, exitCode } = run(__dirname, ['--mode', '--help'], false);
+>>>>>>> feat: allow basic & advanced help output
 
         expect(exitCode).toBe(0);
         expect(stdout).not.toContain('The build tool for modern web applications');
