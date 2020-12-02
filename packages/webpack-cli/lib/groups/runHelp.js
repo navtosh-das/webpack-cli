@@ -19,8 +19,8 @@ const outputHelp = (args) => {
                 arg === '--help' ||
                 arg === '-h' ||
                 arg === '--no-color' ||
-                arg === 'advance' ||
-                arg === '--help=advance'
+                arg === 'verbose' ||
+                arg === '--help=verbose'
             ) {
                 return false;
             }
@@ -99,7 +99,7 @@ const outputHelp = (args) => {
         }
     } else {
         let flagsToDisplay = flags.filter((flag) => !flag.name.includes('-')); // basic options only one word
-        if (args.includes('advance') || args.includes('--help=advance')) {
+        if (args.includes('verbose') || args.includes('--help=verbose')) {
             flagsToDisplay = flags;
         }
         const negatedFlags = flagsToDisplay

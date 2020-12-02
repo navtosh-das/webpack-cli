@@ -33,13 +33,12 @@ describe('single help flag', () => {
         expect(exitCode).toBe(0);
         expect(stderr).toBeFalsy();
         expect(stdout).toContain(helpHeader);
-        expect(stdout).toContain('-t, --target');
+        expect(stdout).toContain('--merge');
         expect(stdout).not.toContain('--config-name'); // an advanced option
     });
 
-
     it('outputs advanced help info with dashed syntax', () => {
-        const { stdout, stderr, exitCode } = run(__dirname, ['--help', 'advance'], false);
+        const { stdout, stderr, exitCode } = run(__dirname, ['--help', 'verbose'], false);
 
         expect(exitCode).toBe(0);
         expect(stderr).toBeFalsy();
@@ -48,7 +47,7 @@ describe('single help flag', () => {
     });
 
     it('outputs advanced help info with command syntax', () => {
-        const { stdout, stderr, exitCode } = run(__dirname, ['help', 'advance'], false);
+        const { stdout, stderr, exitCode } = run(__dirname, ['help', 'verbose'], false);
 
         expect(exitCode).toBe(0);
         expect(stderr).toBeFalsy();
@@ -56,8 +55,8 @@ describe('single help flag', () => {
         expect(stdout).toContain('--config-name'); // an advanced option
     });
 
-    it('outputs advanced help info with --help=advance', () => {
-        const { stdout, stderr, exitCode } = run(__dirname, ['--help=advance'], false);
+    it('outputs advanced help info with --help=verbose', () => {
+        const { stdout, stderr, exitCode } = run(__dirname, ['--help=verbose'], false);
 
         expect(exitCode).toBe(0);
         expect(stdout).toContain(helpHeader);
