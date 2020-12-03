@@ -98,9 +98,9 @@ const outputHelp = (args) => {
             logger.raw(flags);
         }
     } else {
-        let flagsToDisplay = flags.filter((flag) => !flag.name.includes('-')); // basic options only one word
+        let flagsToDisplay = flags.filter(({ help }) => help === 'base'); // basic options only one word
         if (args.includes('verbose') || args.includes('--help=verbose')) {
-            flagsToDisplay = flags;
+            flagsToDisplay = flags.filter(({ help }) => help === 'verbose');
         }
         const negatedFlags = flagsToDisplay
             .filter((flag) => flag.negative)
